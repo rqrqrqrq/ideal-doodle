@@ -39,9 +39,17 @@ npm run preview
 
 ## Available Scripts
 
+### Development
 - `npm run dev` - Start development server
-- `npm run build` - Build for production
 - `npm run preview` - Preview production build
+
+### Building
+- `npm run build` - Build for production
+- `npm run build:dev` - Build for development environment
+- `npm run build:staging` - Build for staging environment
+- `npm run build:prod` - Build for production environment
+
+### Code Quality
 - `npm run lint` - Run ESLint
 - `npm run lint:fix` - Fix ESLint errors automatically
 - `npm run format` - Format code with Prettier
@@ -66,3 +74,58 @@ src/
 - Fast HMR (Hot Module Replacement) with Vite
 - Type-safe development with TypeScript
 - Best practices configuration out of the box
+
+## Deployment
+
+This project uses GitHub Pages for hosting with automated deployments through GitHub Actions.
+
+### Environments
+
+#### 🚀 Staging (Main Branch)
+- **URL**: `https://<username>.github.io/<repo-name>/`
+- **Trigger**: Automatic deployment on push to `main` branch
+- **Workflow**: `.github/workflows/deploy-staging.yml`
+
+#### 🧪 Dev Environment
+- **URL**: `https://<username>.github.io/<repo-name>/dev/`
+- **Trigger**: Manual deployment via GitHub Actions
+- **Workflow**: `.github/workflows/deploy-dev.yml`
+- **Usage**: Go to Actions → Deploy to Dev Environment → Run workflow
+
+#### 🔍 PR Previews
+- **URL**: `https://<username>.github.io/<repo-name>/pr-<number>/`
+- **Trigger**: Automatic deployment when PR is opened/updated
+- **Cleanup**: Automatic removal when PR is closed
+- **Workflows**:
+  - `.github/workflows/deploy-pr-preview.yml` (deployment)
+  - `.github/workflows/cleanup-pr-preview.yml` (cleanup)
+
+### Environment Variables
+
+Environment-specific variables are configured in:
+- `.env.development` - Development environment
+- `.env.staging` - Staging environment (main branch)
+- `.env.production` - Production environment
+
+Variables prefixed with `VITE_` are exposed to the client-side code.
+
+### Initial Setup
+
+To enable GitHub Pages deployments:
+
+1. Go to repository Settings → Pages
+2. Set Source to "GitHub Actions"
+3. The workflows will automatically deploy on the next push to `main` or when a PR is created
+
+### Manual Deployment
+
+To manually deploy to any environment:
+
+```bash
+# Build for specific environment
+npm run build:dev
+npm run build:staging
+npm run build:prod
+```
+
+Then trigger the appropriate GitHub Actions workflow.
