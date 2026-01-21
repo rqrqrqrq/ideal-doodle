@@ -114,8 +114,12 @@ Variables prefixed with `VITE_` are exposed to the client-side code.
 To enable GitHub Pages deployments:
 
 1. Go to repository Settings → Pages
-2. Set Source to "GitHub Actions"
-3. The workflows will automatically deploy on the next push to `main` or when a PR is created
+2. Set Source to "Deploy from a branch"
+3. Select branch: `gh-pages` and folder: `/ (root)`
+4. Save the settings
+5. The workflows will automatically deploy on the next push to `main` or when a PR is created
+
+**Note**: All environments (staging, dev, and PR previews) are deployed to the `gh-pages` branch in different directories for optimal compatibility.
 
 ### Manual Deployment
 
